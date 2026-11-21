@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XI G SMARTCLASS - MAN 1 Lamongan</title>
+    <link rel="icon" type="image/jpeg" href="src/img/logoman.jpeg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { 800: '#1e293b', 900: '#0f172a', 950: '#020617' },
+                        electric: { 500: '#3b82f6', 600: '#2563eb' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            display: inline-block;
+            animation: marquee 28s linear infinite;
+        }
+        @keyframes seatPop {
+            0% { opacity: 0; transform: translateY(10px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes boardGlow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.15); }
+            50% { box-shadow: 0 0 24px 2px rgba(59, 130, 246, 0.25); }
+        }
+        @keyframes gearFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-3px); }
+        }
+        .seat-animate {
+            animation: seatPop 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .board-animate {
+            animation: boardGlow 3.2s ease-in-out infinite;
+        }
+        .gear-animate {
+            animation: seatPop 0.45s cubic-bezier(0.22, 1, 0.36, 1) both, gearFloat 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased selection:bg-electric-500 selection:text-white min-h-screen flex flex-col justify-between">
+
+    <div>
+        <!-- Navbar + Hamburger HP -->
+        <nav class="bg-navy-900/95 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40 shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex justify-between items-center gap-2">
+                <div class="flex items-center space-x-2.5 shrink-0">
+                    <div class="w-10 h-10 rounded-xl overflow-hidden border border-slate-700 bg-navy-950 flex items-center justify-center shrink-0 shadow-md">
+                        <img src="src/img/logoman.jpeg" alt="Logo MAN 1" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <span class="text-xs font-bold text-electric-400 hidden">XI G</span>
+                    </div>
+                    <div>
+                        <h1 class="font-extrabold text-sm sm:text-base tracking-wide text-white leading-tight">XI G SMARTCLASS</h1>
+                        <p class="text-[11px] text-slate-400 font-medium">MAN 1 Lamongan • 2026/2027</p>
+                    </div>
+                </div>
+
+                <!-- Menu Desktop -->
+                <div class="hidden lg:flex items-center space-x-1 bg-navy-950/80 p-1 rounded-xl border border-slate-800 text-xs font-bold">
+                    <a href="index.html" class="px-3 py-2 rounded-lg bg-electric-600 text-white shadow-sm transition">BERANDA</a>
+                    <a href="profil.html" class="px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-navy-900 transition">STRUKTUR KELAS</a>
+                    <a href="jadwal.html" class="px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-navy-900 transition">JADWAL</a>
+                    <a href="galeri.html" class="px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-navy-900 transition">GALERI</a>
+                    <a href="about.html" class="px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-navy-900 transition">TENTANG</a>
+                </div>
+
+                <!-- Login + Hamburger HP -->
+                <div class="flex items-center gap-2 shrink-0">
+                    <div id="nav-auth-container" class="flex items-center gap-2">
+                        <button type="button" onclick="openLoginModal()" class="px-3 py-2 rounded-xl text-xs font-extrabold bg-electric-600 hover:bg-electric-500 text-white shadow-md transition cursor-pointer">
+                            MASUK / LOGIN
+                        </button>
+                    </div>
+
+                    <button
+                        type="button"
+                        id="mobile-menu-btn"
+                        onclick="toggleMobileMenu()"
+                        aria-label="Buka atau tutup menu navigasi"
+                        aria-expanded="false"
+                        class="lg:hidden w-10 h-10 rounded-xl bg-navy-950 border border-slate-800 hover:border-slate-700 text-slate-200 hover:text-white flex items-center justify-center transition cursor-pointer"
+                    >
+                        <span id="mobile-menu-icon" class="text-base font-extrabold leading-none">☰</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dropdown Menu HP -->
+            <div id="mobile-menu-panel" class="hidden lg:hidden border-t border-slate-800/90 bg-navy-950/95 px-4 py-3">
+                <div class="flex flex-col space-y-1.5 text-xs font-bold">
+                    <a href="index.html" class="px-4 py-2.5 rounded-xl bg-electric-600 text-white">BERANDA</a>
+                    <a href="profil.html" class="px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-navy-900 transition">STRUKTUR KELAS</a>
+                    <a href="jadwal.html" class="px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-navy-900 transition">JADWAL</a>
+                    <a href="galeri.html" class="px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-navy-900 transition">GALERI</a>
+                    <a href="about.html" class="px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-navy-900 transition">TENTANG</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Teks Berjalan Moto Madrasah -->
+        <div class="bg-electric-600/90 text-white py-3 overflow-hidden whitespace-nowrap shadow-md border-y border-electric-500">
+            <div class="animate-marquee font-bold text-sm sm:text-base tracking-wide">
+                <span class="mx-6">Madrasah unggul dalam prestasi, terampil, berakhlakul karimah, dan berbudaya lingkungan</span>
+                <span class="mx-6">•</span>
+                <span class="mx-6">MAN 1 Lamongan • Kelas XI-Greatness (XI G)</span>
+                <span class="mx-6">•</span>
+            </div>
+        </div>
+
+        <!-- Hero Banner Atas dengan Foto Gerbang MAN 1 Lamongan & Search Bar -->
+        <header
+            style="background-image: url('src/img/gerbang-man1.jpeg');"
+            class="relative bg-cover bg-center bg-no-repeat py-20 sm:py-24 px-6 border-b border-slate-800/80 overflow-hidden"
+        >
+            <div class="absolute inset-0 bg-slate-950/75"></div>
+
+            <div class="max-w-3xl mx-auto text-center relative z-10">
+                <span class="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-electric-400 bg-navy-950/80 px-5 py-2 rounded-full border border-electric-500/30 inline-block mb-6 shadow-sm">
+                    MAN 1 LAMONGAN • XI-GREATNESS (XI G)
+                </span>
+
+                <h2 class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight uppercase text-white drop-shadow-md">
+                    CLASS XI G <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-electric-500 to-indigo-400">
+                        MAN 1 LAMONGAN
+                    </span>
+                </h2>
+
+                <p class="text-slate-200 text-xs sm:text-sm font-semibold mb-8 max-w-xl mx-auto leading-relaxed tracking-wide">
+                    SISTEM MANAJEMEN KELAS • TAHUN AJARAN 2026/2027
+                </p>
+
+                <!-- Search Bar di Tengah Bawah Judul -->
+                <form onsubmit="handleHeroSearch(event)" class="max-w-xl mx-auto mb-8">
+                    <div class="flex items-center bg-white text-slate-900 rounded-full p-1.5 pl-5 shadow-2xl border border-slate-200">
+                        <input
+                            id="hero-search-input"
+                            type="text"
+                            placeholder="Cari bangku (01-36), kipas, galon, sapu, jadwal..."
+                            class="flex-1 bg-transparent text-xs sm:text-sm font-semibold text-slate-900 placeholder-slate-500 focus:outline-none"
+                        >
+                        <button
+                            type="submit"
+                            class="px-5 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs sm:text-sm transition cursor-pointer shrink-0"
+                        >
+                            Cari
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Dua Tombol Pindah Halaman -->
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="kepala-madrasah.html" class="px-8 py-3.5 bg-electric-600 hover:bg-electric-500 text-white rounded-2xl font-bold text-sm sm:text-base shadow-xl shadow-electric-600/30 transition transform hover:-translate-y-0.5">
+                        LIHAT KEPALA MADRASAH
+                    </a>
+                    <a href="daftar-guru.html" class="px-8 py-3.5 bg-navy-900/90 hover:bg-navy-800 text-slate-200 border border-slate-700 rounded-2xl font-bold text-sm sm:text-base transition">
+                        LIHAT DAFTAR GURU
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Panel Khusus Sesuai Role -->
+        <section class="max-w-6xl mx-auto px-6 -mt-8 relative z-20 mb-8 space-y-6">
+            <div data-role="developer" class="hidden bg-purple-950/90 border border-purple-700/60 p-6 rounded-3xl shadow-2xl">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <span class="text-[11px] font-extrabold uppercase tracking-wider text-purple-300 bg-purple-500/20 px-3 py-1 rounded-full">Akses Developer / Pembuat Web</span>
+                        <h3 class="text-lg font-extrabold text-white mt-2">Panel Kontrol Super Admin (Mahzuzan.dev)</h3>
+                        <p class="text-xs text-purple-200/80 mt-1">Kelola database 36 siswa, struktur pengurus, jadwal pelajaran, galeri, dan sistem.</p>
+                    </div>
+                    <a href="profil.html" class="px-5 py-2.5 bg-purple-600 hover:bg-purple-500 text-white rounded-xl text-xs font-bold transition shrink-0">Kelola Data Kelas</a>
+                </div>
+            </div>
+
+            <div data-role="guru" class="hidden bg-amber-950/90 border border-amber-700/60 p-6 rounded-3xl shadow-2xl">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-300 bg-amber-500/20 px-3 py-1 rounded-full">Akses Guru & Wali Kelas</span>
+                        <h3 class="text-lg font-extrabold text-white mt-2">Selamat Datang, Ibu Arini Husnayain / Bapak-Ibu Guru</h3>
+                        <p class="text-xs text-amber-200/80 mt-1">Pantau daftar 36 siswa, struktur organisasi kelas, serta jadwal KBM XI-Greatness.</p>
+                    </div>
+                    <a href="profil.html" class="px-5 py-2.5 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold transition shrink-0">Cek Data 36 Siswa</a>
+                </div>
+            </div>
+
+            <!-- Panel Khusus Bendahara Kelas + Export Excel & Google Sheets -->
+            <div data-role="bendahara,developer" class="hidden bg-emerald-950/95 border border-emerald-700/60 p-6 sm:p-8 rounded-3xl shadow-2xl space-y-6">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-emerald-800/60 pb-4">
+                    <div>
+                        <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-300 bg-emerald-500/20 px-3 py-1 rounded-full">
+                            Panel Khusus Bendahara Kelas XI G
+                        </span>
+                        <h3 class="text-xl font-extrabold text-white mt-2">Kelola Kas Kelas & Sinkronisasi Excel</h3>
+                        <p class="text-xs sm:text-sm text-emerald-100/80 mt-1">
+                            Simpan transaksi kas di web lalu unduh file Excel (.xls) atau kirim otomatis ke Google Sheets.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+                        <button
+                            type="button"
+                            onclick="exportKasToExcel()"
+                            class="px-4 py-2.5 rounded-xl text-xs font-extrabold bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-md transition cursor-pointer"
+                        >
+                            DOWNLOAD EXCEL (.XLS)
+                        </button>
+                        <button
+                            type="button"
+                            onclick="clearKasData()"
+                            class="px-4 py-2.5 rounded-xl text-xs font-bold bg-red-500/15 hover:bg-red-500/25 text-red-300 border border-red-500/30 transition cursor-pointer"
+                        >
+                            RESET KAS
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Ringkasan Saldo -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="bg-navy-950/90 border border-emerald-800/50 rounded-2xl p-4">
+                        <div class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Total Kas Masuk</div>
+                        <div id="kas-total-masuk" class="text-lg sm:text-xl font-extrabold text-white mt-1">Rp 0</div>
+                    </div>
+                    <div class="bg-navy-950/90 border border-emerald-800/50 rounded-2xl p-4">
+                        <div class="text-[11px] font-bold uppercase tracking-wider text-rose-400">Total Pengeluaran</div>
+                        <div id="kas-total-keluar" class="text-lg sm:text-xl font-extrabold text-white mt-1">Rp 0</div>
+                    </div>
+                    <div class="bg-navy-950/90 border border-emerald-800/50 rounded-2xl p-4">
+                        <div class="text-[11px] font-bold uppercase tracking-wider text-electric-400">Saldo Kas Saat Ini</div>
+                        <div id="kas-saldo" class="text-lg sm:text-xl font-extrabold text-emerald-300 mt-1">Rp 0</div>
+                    </div>
+                </div>
+
+                <!-- Pengaturan URL Google Sheets (Apps Script) -->
+                <div class="bg-navy-950/80 border border-slate-800 rounded-2xl p-4 space-y-2">
+                    <label for="sheets-webhook-url" class="block text-[11px] font-bold uppercase tracking-wider text-slate-300">
+                        URL Google Apps Script (Terhubung ke Google Sheets Saat Disimpan)
+                    </label>
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input
+                            id="sheets-webhook-url"
+                            type="url"
+                            placeholder="https://script.google.com/macros/s/.../exec"
+                            class="flex-1 bg-navy-900 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-400"
+                        >
+                        <button
+                            type="button"
+                            onclick="saveSheetsWebhookUrl()"
+                            class="px-4 py-2 rounded-xl text-xs font-bold bg-navy-800 hover:bg-slate-700 text-white border border-slate-700 transition cursor-pointer shrink-0"
+                        >
+                            SIMPAN URL
+                        </button>
+                    </div>
+                    <p id="kas-sync-status" class="text-[11px] text-slate-400">URL Google Sheets aktif. Transaksi tersimpan di web, otomatis dikirim ke Sheet, dan siap diunduh ke Excel.</p>
+                </div>
+
+                <!-- Form Tambah Transaksi Kas -->
+                <form onsubmit="handleAddKasTransaction(event)" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 bg-navy-950/90 border border-slate-800 p-4 rounded-2xl">
+                    <div>
+                        <label for="kas-tanggal" class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Tanggal</label>
+                        <input id="kas-tanggal" type="date" required class="w-full bg-navy-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs font-semibold text-white focus:outline-none focus:border-emerald-400">
+                    </div>
+
+                    <div class="sm:col-span-2 lg:col-span-2">
+                        <label for="kas-keterangan" class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Nama Siswa / Keterangan</label>
+                        <input id="kas-keterangan" type="text" required placeholder="Contoh: Iuran Kas Mahzuzan / Beli Spidol Papan" class="w-full bg-navy-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs font-semibold text-white focus:outline-none focus:border-emerald-400">
+                    </div>
+
+                    <div>
+                        <label for="kas-jenis" class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Jenis</label>
+                        <select id="kas-jenis" class="w-full bg-navy-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs font-semibold text-white focus:outline-none focus:border-emerald-400">
+                            <option value="pemasukan">Pemasukan (+)</option>
+                            <option value="pengeluaran">Pengeluaran (-)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="kas-nominal" class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Nominal (Rp)</label>
+                        <input id="kas-nominal" type="number" min="1" required placeholder="10000" class="w-full bg-navy-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs font-semibold text-white focus:outline-none focus:border-emerald-400">
+                    </div>
+
+                    <div class="sm:col-span-2 lg:col-span-5 flex justify-end pt-1">
+                        <button type="submit" class="w-full sm:w-auto px-6 py-2.5 rounded-xl text-xs font-extrabold bg-electric-600 hover:bg-electric-500 text-white shadow-md transition cursor-pointer">
+                            SIMPAN TRANSAKSI KE WEB
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Tabel Riwayat Transaksi Kas -->
+                <div class="overflow-x-auto bg-navy-950/90 border border-slate-800 rounded-2xl">
+                    <table class="w-full text-left border-collapse min-w-[580px]">
+                        <thead>
+                            <tr class="bg-navy-900 text-[11px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-800">
+                                <th class="p-3.5 text-center w-12">No</th>
+                                <th class="p-3.5">Tanggal</th>
+                                <th class="p-3.5">Keterangan</th>
+                                <th class="p-3.5">Jenis</th>
+                                <th class="p-3.5 text-right">Nominal</th>
+                                <th class="p-3.5 text-center w-20">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="kas-tbody" class="divide-y divide-slate-800/80 text-xs sm:text-sm"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div data-role="siswa" class="hidden bg-blue-950/90 border border-blue-700/60 p-6 rounded-3xl shadow-2xl">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <span class="text-[11px] font-extrabold uppercase tracking-wider text-blue-300 bg-blue-500/20 px-3 py-1 rounded-full">Akses Siswa XI-Greatness</span>
+                        <h3 class="text-lg font-extrabold text-white mt-2">Halo Warga Kelas XI G!</h3>
+                        <p class="text-xs text-blue-200/80 mt-1">Cek jadwal pelajaran harian dan dokumentasi kegiatan kelas terbaru.</p>
+                    </div>
+                    <a href="jadwal.html" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition shrink-0">Cek Jadwal Pelajaran</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filosofi & Motto Kelas XI G -->
+        <section class="max-w-6xl mx-auto px-6 relative z-10 mb-8">
+            <div class="bg-navy-900/95 backdrop-blur-md p-8 rounded-3xl border border-slate-800 shadow-2xl space-y-5">
+                <div class="border-b border-slate-800 pb-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                    <h3 class="font-extrabold text-lg text-electric-400 uppercase tracking-wider">FILOSOFI & MOTTO KELAS XI G</h3>
+                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">XI-GREATNESS • MAN 1 LAMONGAN</span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+                    <div class="space-y-2.5 text-sm text-slate-300 leading-relaxed">
+                        <p class="text-xs font-extrabold uppercase tracking-wider text-slate-400">Filosofi Kelas</p>
+                        <p>
+                            Kelas <strong>XI-Greatness (XI G)</strong> dibangun atas dasar kebersamaan, keterbukaan, dan tanggung jawab kolektif. Setiap anggota kelas memiliki peran penting untuk saling menguatkan dalam belajar, berkarya, serta menjaga nama baik madrasah.
+                        </p>
+                        <p class="text-slate-400">
+                            Kami meyakini bahwa keunggulan sejati lahir dari proses yang konsisten, adab yang terjaga, dan kepedulian terhadap sesama maupun lingkungan sekitar.
+                        </p>
+                    </div>
+
+                    <div class="bg-navy-950/90 border border-slate-800 rounded-2xl p-6 space-y-2">
+                        <p class="text-xs font-extrabold uppercase tracking-wider text-emerald-400">Motto Kelas XI G</p>
+                        <blockquote class="text-base sm:text-lg font-extrabold text-white leading-snug">
+                            "Solid Berproses, Berakhlak dan Berprestasi — XI-Greatness Juara!"
+                        </blockquote>
+                        <p class="text-xs text-slate-400 pt-1">
+                            Satu komando, satu tujuan, maju bersama untuk XI G dan MAN 1 Lamongan.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Visi Misi & Peraturan -->
+        <section class="max-w-6xl mx-auto px-6 relative z-10 mb-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-navy-900/95 backdrop-blur-md p-8 rounded-3xl border border-slate-800 shadow-2xl space-y-4">
+                    <div class="border-b border-slate-800 pb-3">
+                        <h3 class="font-extrabold text-lg text-electric-400 uppercase tracking-wider">VISI & MISI KELAS XI G</h3>
+                    </div>
+                    <div class="space-y-3 text-sm text-slate-300 leading-relaxed">
+                        <p><strong>Visi:</strong> Mewujudkan kelas XI-Greatness yang solid, berprestasi tinggi, berakhlak mulia, dan aktif berkolaborasi.</p>
+                        <div>
+                            <strong>Misi:</strong>
+                            <ul class="list-disc pl-5 mt-1 space-y-1 text-slate-400">
+                                <li>Membangun kebersamaan dan kekeluargaan antar warga kelas.</li>
+                                <li>Mendukung penuh setiap kegiatan akademik maupun non-akademik madrasah.</li>
+                                <li>Menjaga kedisiplinan, kebersihan, dan kenyamanan lingkungan kelas.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-navy-900/95 backdrop-blur-md p-8 rounded-3xl border border-slate-800 shadow-2xl space-y-4">
+                    <div class="border-b border-slate-800 pb-3">
+                        <h3 class="font-extrabold text-lg text-amber-400 uppercase tracking-wider">TATA TERTIB & PERATURAN</h3>
+                    </div>
+                    <ul class="space-y-2.5 text-sm font-medium text-slate-300">
+                        <li class="flex items-start space-x-2">
+                            <span class="text-amber-400 font-bold">•</span>
+                            <span>Hadir tepat waktu sebelum jam pelajaran pertama dimulai.</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="text-amber-400 font-bold">•</span>
+                            <span>Melaksanakan tugas piket kebersihan kelas sesuai jadwal harian.</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="text-amber-400 font-bold">•</span>
+                            <span>Mengenakan atribut seragam madrasah secara lengkap dan rapi.</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="text-amber-400 font-bold">•</span>
+                            <span>Menjaga ketertiban dan ketenangan saat KBM sedang berlangsung.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Animasi Tata Letak Kelas XI G + Perlengkapan Kelas -->
+        <section id="denah-kelas-section" class="max-w-6xl mx-auto px-6 relative z-10 mb-16">
+            <div class="bg-navy-900/95 backdrop-blur-md p-6 sm:p-8 rounded-3xl border border-slate-800 shadow-2xl space-y-8">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800 pb-4">
+                    <div>
+                        <span class="text-[11px] font-extrabold uppercase tracking-widest text-electric-400 bg-electric-500/10 px-3.5 py-1 rounded-full border border-electric-500/20 inline-block mb-2">
+                            DENAH, BANGKU & PERLENGKAPAN
+                        </span>
+                        <h3 class="font-extrabold text-lg sm:text-xl text-white uppercase tracking-wide">
+                            ANIMASI TATA LETAK KELAS XI G
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-400 mt-1">
+                            36 bangku & 36 kursi siswa, papan tulis di depan, meja & kursi guru di samping kanan papan, serta perlengkapan kelas.
+                        </p>
+                    </div>
+                    <button
+                        type="button"
+                        onclick="replayClassroomAnimation()"
+                        class="px-4 py-2 rounded-xl text-xs font-bold bg-electric-600 hover:bg-electric-500 text-white shadow-md transition cursor-pointer shrink-0 self-start sm:self-auto"
+                    >
+                        PUTAR ULANG ANIMASI
+                    </button>
+                </div>
+
+                <!-- Status Info Saat Bangku/Kursi/Perlengkapan Diklik -->
+                <div id="seat-status-box" class="bg-navy-950 border border-slate-800 rounded-2xl px-4 py-3 text-xs sm:text-sm text-slate-300 flex flex-wrap items-center justify-between gap-2">
+                    <span>Klik salah satu <strong>bangku + kursi</strong> (01–36), area <strong>guru / papan</strong>, atau <strong>perlengkapan kelas</strong> untuk melihat detail.</span>
+                    <span class="text-[11px] font-bold text-electric-400 bg-electric-500/10 px-2.5 py-1 rounded-lg">36 Bangku • 36 Kursi • 14 Item Perlengkapan</span>
+                </div>
+
+                <!-- Area Ruang Kelas -->
+                <div class="bg-navy-950/90 border border-slate-800 rounded-3xl p-4 sm:p-6 overflow-x-auto">
+                    <div class="min-w-[680px] space-y-6">
+                        <!-- Baris Depan: Papan Tulis di Tengah + Meja & Kursi Guru di Samping Kanan -->
+                        <div class="grid grid-cols-12 gap-4 items-center">
+                            <div class="col-span-2 text-center">
+                                <span class="inline-block text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-navy-900 border border-slate-800/80 px-2.5 py-1.5 rounded-xl">
+                                    AREA DEPAN
+                                </span>
+                            </div>
+
+                            <!-- Papan Tulis -->
+                            <div class="col-span-6">
+                                <button
+                                    type="button"
+                                    onclick="selectClassroomZone('Papan Tulis Utama', 'Terletak di bagian depan kelas XI G untuk menjelaskan materi pelajaran dan catatan KBM.')"
+                                    class="w-full board-animate bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 border-2 border-electric-500/50 hover:border-electric-400 rounded-2xl py-3.5 px-5 text-center transition cursor-pointer"
+                                >
+                                    <div class="text-[10px] font-extrabold uppercase tracking-widest text-electric-400">PAPAN TULIS KELAS XI G</div>
+                                    <div class="text-xs text-slate-300 font-semibold mt-0.5">Whiteboard / Media Pembelajaran Depan</div>
+                                </button>
+                            </div>
+
+                            <!-- Meja & Kursi Guru di Samping Kanan Papan -->
+                            <div class="col-span-4 flex justify-end">
+                                <button
+                                    type="button"
+                                    onclick="selectClassroomZone('Meja & Kursi Guru', 'Berada di samping kanan papan tulis di bagian depan ruang kelas XI G.')"
+                                    class="w-full max-w-[230px] bg-amber-950/60 hover:bg-amber-900/60 border border-amber-500/50 rounded-2xl p-3 text-center transition cursor-pointer shadow-md"
+                                >
+                                    <div class="flex items-center justify-center gap-2">
+                                        <span class="px-2.5 py-1 rounded-lg bg-amber-500/20 border border-amber-400/40 text-amber-300 text-[11px] font-extrabold">
+                                            MEJA GURU
+                                        </span>
+                                        <span class="px-2.5 py-1 rounded-lg bg-amber-500/30 border border-amber-400/50 text-amber-200 text-[11px] font-extrabold">
+                                            KURSI GURU
+                                        </span>
+                                    </div>
+                                    <div class="text-[10px] font-semibold text-amber-200/80 mt-1.5">Samping Kanan Papan</div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Garis Pemisah Arah Hadap -->
+                        <div class="flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                            <div class="h-px bg-slate-800 flex-1"></div>
+                            <span>SUSUNAN 36 BANGKU & 36 KURSI SISWA (MENGHADAP DEPAN)</span>
+                            <div class="h-px bg-slate-800 flex-1"></div>
+                        </div>
+
+                        <!-- Grid 36 Bangku + 36 Kursi -->
+                        <div id="classroom-seats-grid" class="grid grid-cols-6 gap-3.5"></div>
+
+                        <!-- Keterangan Simbol -->
+                        <div class="flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-slate-800/80 text-[11px] text-slate-400">
+                            <div class="flex flex-wrap items-center gap-4">
+                                <span class="flex items-center gap-1.5">
+                                    <span class="w-3 h-3 rounded bg-electric-500/30 border border-electric-400 inline-block"></span>
+                                    Bangku Siswa (36)
+                                </span>
+                                <span class="flex items-center gap-1.5">
+                                    <span class="w-3 h-3 rounded bg-indigo-500/30 border border-indigo-400 inline-block"></span>
+                                    Kursi Siswa (36)
+                                </span>
+                                <span class="flex items-center gap-1.5">
+                                    <span class="w-3 h-3 rounded bg-amber-500/30 border border-amber-400 inline-block"></span>
+                                    Meja & Kursi Guru (Kanan Papan)
+                                </span>
+                            </div>
+                            <span class="font-semibold text-slate-300">Total: 36 Bangku + 36 Kursi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Perlengkapan Kelas XI G -->
+                <div class="pt-4 border-t border-slate-800 space-y-5">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                        <div>
+                            <h4 class="font-extrabold text-base sm:text-lg text-white uppercase tracking-wider">
+                                PERLENGKAPAN KELAS XI G
+                            </h4>
+                            <p class="text-xs text-slate-400 mt-0.5">
+                                3 kipas, 1 stopkontak, 2 galon, 1 lemari, 2 sapu, 2 cikrak, 1 rak sepatu, 1 jam dinding, dan 1 vas bunga.
+                            </p>
+                        </div>
+                        <span class="text-[11px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-xl self-start sm:self-auto">
+                            Inventaris Ruang Kelas
+                        </span>
+                    </div>
+
+                    <div id="classroom-equipment-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Blok Informasi Multi-Kolom di Bagian Bawah (Sebelum Footer) -->
+    <section class="bg-navy-900/95 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-6 py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-xs">
+            <div class="space-y-2.5">
+                <h3 class="font-extrabold text-sm text-white border-b border-slate-800 pb-2">Kontak & Kelas</h3>
+                <p class="text-slate-400 leading-relaxed">
+                    Portal informasi warga kelas <strong class="text-slate-200">XI-Greatness (XI G)</strong> MAN 1 Lamongan Tahun Ajaran 2026/2027.
+                </p>
+                <p class="text-slate-400">Lokasi: <span class="text-slate-200 font-semibold">Lamongan, Jawa Timur</span></p>
+            </div>
+
+            <div class="space-y-2.5">
+                <h3 class="font-extrabold text-sm text-white border-b border-slate-800 pb-2">Tentang XI G</h3>
+                <p class="text-slate-400 leading-relaxed">
+                    Wadah koordinasi struktur pengurus kelas, jadwal pelajaran harian, kas kelas, dan dokumentasi kegiatan siswa.
+                </p>
+            </div>
+
+            <div class="space-y-2.5">
+                <h3 class="font-extrabold text-sm text-white border-b border-slate-800 pb-2">Link Tautan Kelas</h3>
+                <ul class="space-y-1.5 text-slate-300 font-semibold">
+                    <li><a href="kepala-madrasah.html" class="hover:text-electric-400 transition">• Pesan Kepala Madrasah</a></li>
+                    <li><a href="daftar-guru.html" class="hover:text-electric-400 transition">• Daftar Guru MAN 1 Lamongan</a></li>
+                    <li><a href="profil.html" class="hover:text-electric-400 transition">• Struktur Kelas & 36 Siswa</a></li>
+                    <li><a href="jadwal.html" class="hover:text-electric-400 transition">• Jadwal Pelajaran & Piket</a></li>
+                </ul>
+            </div>
+
+            <div class="space-y-2.5">
+                <h3 class="font-extrabold text-sm text-white border-b border-slate-800 pb-2">Informasi Terkini</h3>
+                <ul class="space-y-2 text-slate-300">
+                    <li class="border-l-2 border-electric-500 pl-2.5">
+                        <span class="font-bold text-white block">Denah 36 Bangku & Perlengkapan</span>
+                        <span class="text-[11px] text-slate-400">Klik set bangku atau inventaris di atas untuk cek posisi.</span>
+                    </li>
+                    <li class="border-l-2 border-emerald-500 pl-2.5">
+                        <span class="font-bold text-white block">Kas & Ekspor Excel (.xls)</span>
+                        <span class="text-[11px] text-slate-400">Login akun Bendahara untuk mencatat kas & unduh rekap.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-navy-950 border-t border-slate-800 py-6 text-center text-xs text-slate-400">
+        <p>© 2026 XI G SMARTCLASS • MAN 1 Lamongan. All rights reserved.</p>
+    </footer>
+
+    <!-- Modal Login -->
+    <div id="auth-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-navy-900 border border-slate-800 w-full max-w-md rounded-3xl p-7 shadow-2xl relative">
+            <button type="button" onclick="closeLoginModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-sm font-bold px-2.5 py-1 rounded-lg bg-navy-950 border border-slate-800 cursor-pointer">X</button>
+            <div class="mb-6">
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-electric-400 bg-electric-500/10 px-3 py-1 rounded-full border border-electric-500/20">Autentikasi Portal</span>
+                <h3 class="text-xl font-extrabold text-white mt-3">Pilih Hak Akses Masuk</h3>
+                <p class="text-xs text-slate-400 mt-1">Masuk sesuai peran Anda atau lanjutkan sebagai pengunjung biasa.</p>
+            </div>
+            <form onsubmit="handleRoleLogin(event)" class="space-y-4">
+                <div>
+                    <label for="login-role" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Peran / Jabatan</label>
+                    <select id="login-role" onchange="togglePinInput()" class="w-full bg-navy-950 border border-slate-700 rounded-xl px-4 py-3 text-sm font-semibold text-white focus:outline-none focus:border-electric-500">
+                        <option value="guest">Pengunjung Biasa (Tanpa Kode)</option>
+                        <option value="siswa">Siswa XI-Greatness</option>
+                        <option value="bendahara">Bendahara Kelas</option>
+                        <option value="guru">Guru / Wali Kelas</option>
+                        <option value="developer">Pembuat Web (Developer)</option>
+                    </select>
+                </div>
+                <div id="pin-input-wrapper" class="hidden">
+                    <label for="login-pin" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Kode Akses / PIN</label>
+                    <input type="password" id="login-pin" placeholder="Masukkan kode akses..." class="w-full bg-navy-950 border border-slate-700 rounded-xl px-4 py-3 text-sm font-semibold text-white focus:outline-none focus:border-electric-500">
+                </div>
+                <p id="login-error" class="hidden text-xs font-semibold text-red-400 bg-red-500/10 border border-red-500/20 px-3 py-2 rounded-xl"></p>
+                <button type="submit" class="w-full py-3.5 bg-electric-600 hover:bg-electric-500 text-white rounded-xl font-bold text-sm shadow-lg shadow-electric-600/30 transition cursor-pointer">MASUK KE PORTAL</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function handleHeroSearch(event) {
+            event.preventDefault();
+            var input = document.getElementById("hero-search-input");
+            var q = input ? input.value.trim().toLowerCase() : "";
+            if (!q) return;
+
+            if (q.indexOf("kepala") !== -1) {
+                window.location.href = "kepala-madrasah.html";
+                return;
+            }
+            if (q.indexOf("guru") !== -1) {
+                window.location.href = "daftar-guru.html";
+                return;
+            }
+            if (q.indexOf("jadwal") !== -1) {
+                window.location.href = "jadwal.html";
+                return;
+            }
+            if (q.indexOf("struktur") !== -1 || q.indexOf("siswa") !== -1 || q.indexOf("pengurus") !== -1) {
+                window.location.href = "profil.html";
+                return;
+            }
+            if (q.indexOf("galeri") !== -1 || q.indexOf("foto") !== -1) {
+                window.location.href = "galeri.html";
+                return;
+            }
+
+            var matchNum = q.match(/\d+/);
+            if (matchNum) {
+                var numVal = parseInt(matchNum[0], 10);
+                if (numVal >= 1 && numVal <= 36 && typeof selectSeat === "function") {
+                    selectSeat(numVal, Math.ceil(numVal / 6), ((numVal - 1) % 6) + 1);
+                    var section = document.getElementById("denah-kelas-section");
+                    if (section) section.scrollIntoView({ behavior: "smooth" });
+                    return;
+                }
+            }
+
+            if (typeof classroomEquipment !== "undefined" && typeof selectEquipmentByIndex === "function") {
+                for (var i = 0; i < classroomEquipment.length; i++) {
+                    var item = classroomEquipment[i];
+                    if (item.name.toLowerCase().indexOf(q) !== -1 || item.category.toLowerCase().indexOf(q) !== -1 || item.desc.toLowerCase().indexOf(q) !== -1) {
+                        selectEquipmentByIndex(i);
+                        var denahSec = document.getElementById("denah-kelas-section");
+                        if (denahSec) denahSec.scrollIntoView({ behavior: "smooth" });
+                        return;
+                    }
+                }
+            }
+
+            var fallbackBox = document.getElementById("seat-status-box");
+            if (fallbackBox) {
+                fallbackBox.innerHTML = '<span>Pencarian "<strong>' + input.value + '</strong>" belum cocok dengan bangku (01–36) atau perlengkapan. Coba kata kunci seperti <em>01</em>, <em>kipas</em>, <em>galon</em>, <em>sapu</em>, atau <em>jadwal</em>.</span>';
+                var sec = document.getElementById("denah-kelas-section");
+                if (sec) sec.scrollIntoView({ behavior: "smooth" });
+            }
+        }
+    </script>
+    <script src="./app.js"></script>
+</body>
+</html>

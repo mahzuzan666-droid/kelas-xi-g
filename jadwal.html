@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XI G SMARTCLASS - Jadwal Pelajaran</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { 800: '#1e293b', 900: '#0f172a', 950: '#020617' },
+                        electric: { 500: '#3b82f6', 600: '#2563eb' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            display: inline-block;
+            animation: marquee 28s linear infinite;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased selection:bg-electric-500 selection:text-white min-h-screen flex flex-col justify-between">
+
+    <div>
+        <!-- Navbar + Hamburger HP -->
+        <nav class="bg-navy-900/95 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40 shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex justify-between items-center gap-2">
+                <div class="flex items-center space-x-2.5 shrink-0">
+                    <div class="w-10 h-10 rounded-xl overflow-hidden border border-slate-700 bg-navy-950 flex items-center justify-center shrink-0 shadow-md">
+                        <img src="src/img/logoman.jpeg" alt="Logo MAN 1" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <span class="text-xs font-bold text-electric-400 hidden">XI G</span>
+                    </div>
+                    <div>
+                        <h1 class="font-extrabold text-sm sm:text-base tracking-wide text-white leading-tight">XI G SMARTCLASS</h1>
+                        <p class="text-[11px] text-slate-400 font-medium">MAN 1 Lamongan • 2026/2027</p>
+                    </div>
+                </div>
+
+                <!-- Menu Desktop -->
+                <div class="hidden lg:flex items-center space-x-1 bg-navy-950/80 p-1 rounded-xl border border-slate-800 text-xs font-bold">
+                    <a href="index.html" class="px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-navy-900 transition">BERANDA</a>
+                    <a href="profil.html" class="px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-navy-900 transition">STRUKTUR KELAS</a>
+                    <a href="jadwal.html" class="px-3 py-2 rounded-lg bg-electric-600 text-white shadow-sm transition">JADWAL</a>
+                    <a href="galeri.html" class="px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-navy-900 transition">GALERI</a>
+                    <a href="about.html" class="px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-navy-900 transition">TENTANG</a>
+                </div>
+
+                <!-- Login + Hamburger HP -->
+                <div class="flex items-center gap-2 shrink-0">
+                    <div id="nav-auth-container" class="flex items-center gap-2">
+                        <button type="button" onclick="openLoginModal()" class="px-3 py-2 rounded-xl text-xs font-extrabold bg-electric-600 hover:bg-electric-500 text-white shadow-md transition cursor-pointer">
+                            MASUK / LOGIN
+                        </button>
+                    </div>
+
+                    <button
+                        type="button"
+                        id="mobile-menu-btn"
+                        onclick="toggleMobileMenu()"
+                        aria-label="Buka atau tutup menu navigasi"
+                        aria-expanded="false"
+                        class="lg:hidden w-10 h-10 rounded-xl bg-navy-950 border border-slate-800 hover:border-slate-700 text-slate-200 hover:text-white flex items-center justify-center transition cursor-pointer"
+                    >
+                        <span id="mobile-menu-icon" class="text-base font-extrabold leading-none">☰</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dropdown Menu HP -->
+            <div id="mobile-menu-panel" class="hidden lg:hidden border-t border-slate-800/90 bg-navy-950/95 px-4 py-3">
+                <div class="flex flex-col space-y-1.5 text-xs font-bold">
+                    <a href="index.html" class="px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-navy-900 transition">BERANDA</a>
+                    <a href="profil.html" class="px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-navy-900 transition">STRUKTUR KELAS</a>
+                    <a href="jadwal.html" class="px-4 py-2.5 rounded-xl bg-electric-600 text-white">JADWAL</a>
+                    <a href="galeri.html" class="px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-navy-900 transition">GALERI</a>
+                    <a href="about.html" class="px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-navy-900 transition">TENTANG</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Teks Berjalan Moto Madrasah -->
+        <div class="bg-electric-600/90 text-white py-3 overflow-hidden whitespace-nowrap shadow-md border-y border-electric-500">
+            <div class="animate-marquee font-bold text-sm sm:text-base tracking-wide">
+                <span class="mx-6">Madrasah unggul dalam prestasi, terampil, berakhlakul karimah, dan berbudaya lingkungan</span>
+                <span class="mx-6">•</span>
+                <span class="mx-6">MAN 1 Lamongan • Kelas XI-Greatness (XI G)</span>
+                <span class="mx-6">•</span>
+            </div>
+        </div>
+
+        <main class="max-w-6xl mx-auto px-6 py-12 space-y-10">
+            <div class="text-center space-y-3">
+                <span class="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-electric-400 bg-electric-500/10 px-5 py-2 rounded-full border border-electric-500/20 inline-block shadow-sm">
+                    KBM AKTIF • XI-GREATNESS
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">
+                    JADWAL PELAJARAN KELAS XI G
+                </h2>
+                <p class="text-slate-400 text-sm">Daftar kegiatan belajar mengajar dari hari Senin sampai Jumat</p>
+                <div class="max-w-md mx-auto pt-2">
+                    <input id="filter-mapel" type="text" placeholder="Cari mata pelajaran (misal: Fisika, MTK, Fiqih)..." class="w-full bg-navy-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-electric-500">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-navy-900/95 border border-slate-800 p-6 rounded-3xl shadow-xl space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                        <h3 class="font-extrabold text-base text-electric-400 uppercase tracking-wider">Senin</h3>
+                        <span class="text-[10px] font-bold bg-electric-500/10 text-electric-400 px-2.5 py-1 rounded-lg">5 Mapel</span>
+                    </div>
+                    <ul class="space-y-2.5 text-sm font-semibold text-slate-200">
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">1. FISIKA</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">2. MTK TL</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">3. KIMIA</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">4. AQIDAH</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">5. INFOR</li>
+                    </ul>
+                </div>
+
+                <div class="bg-navy-900/95 border border-slate-800 p-6 rounded-3xl shadow-xl space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                        <h3 class="font-extrabold text-base text-electric-400 uppercase tracking-wider">Selasa</h3>
+                        <span class="text-[10px] font-bold bg-electric-500/10 text-electric-400 px-2.5 py-1 rounded-lg">5 Mapel</span>
+                    </div>
+                    <ul class="space-y-2.5 text-sm font-semibold text-slate-200">
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">1. PJOK</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">2. FISIKA</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">3. PPKN</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">4. MTK TL</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">5. BING</li>
+                    </ul>
+                </div>
+
+                <div class="bg-navy-900/95 border border-slate-800 p-6 rounded-3xl shadow-xl space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                        <h3 class="font-extrabold text-base text-electric-400 uppercase tracking-wider">Rabu</h3>
+                        <span class="text-[10px] font-bold bg-electric-500/10 text-electric-400 px-2.5 py-1 rounded-lg">5 Mapel</span>
+                    </div>
+                    <ul class="space-y-2.5 text-sm font-semibold text-slate-200">
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">1. GEO</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">2. SENBUD</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">3. KIMIA</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">4. SKI</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">5. BIO / RISET</li>
+                    </ul>
+                </div>
+
+                <div class="bg-navy-900/95 border border-slate-800 p-6 rounded-3xl shadow-xl space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                        <h3 class="font-extrabold text-base text-electric-400 uppercase tracking-wider">Kamis</h3>
+                        <span class="text-[10px] font-bold bg-electric-500/10 text-electric-400 px-2.5 py-1 rounded-lg">5 Mapel</span>
+                    </div>
+                    <ul class="space-y-2.5 text-sm font-semibold text-slate-200">
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">1. PRAKARYA</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">2. GEO</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">3. FIQIH</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">4. SEJARAH</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">5. QURDIS</li>
+                    </ul>
+                </div>
+
+                <div class="bg-navy-900/95 border border-slate-800 p-6 rounded-3xl shadow-xl space-y-4 md:col-span-2 lg:col-span-1">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                        <h3 class="font-extrabold text-base text-electric-400 uppercase tracking-wider">Jumat</h3>
+                        <span class="text-[10px] font-bold bg-electric-500/10 text-electric-400 px-2.5 py-1 rounded-lg">5 Mapel</span>
+                    </div>
+                    <ul class="space-y-2.5 text-sm font-semibold text-slate-200">
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">1. B.INDO</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">2. MTK UMUM</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">3. B.ARAB</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">4. BK</li>
+                        <li class="mapel-item p-2.5 bg-navy-950 rounded-xl border border-slate-800/60">5. TAHFID</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="bg-navy-900 border-t border-slate-800 py-8 text-center text-xs sm:text-sm text-slate-400 mt-20">
+        <p>© 2026 XI G SMARTCLASS • MAN 1 Lamongan. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const searchInput = document.getElementById("filter-mapel");
+            if (searchInput) {
+                searchInput.addEventListener("input", (e) => {
+                    const keyword = e.target.value.toLowerCase().trim();
+                    document.querySelectorAll(".mapel-item").forEach((item) => {
+                        item.style.display = item.textContent.toLowerCase().includes(keyword) ? "" : "none";
+                    });
+                });
+            }
+        });
+
+        function toggleMobileMenu() {
+            const panel = document.getElementById("mobile-menu-panel");
+            const btn = document.getElementById("mobile-menu-btn");
+            const icon = document.getElementById("mobile-menu-icon");
+            if (!panel || !btn) return;
+
+            const isOpen = !panel.classList.contains("hidden");
+            if (isOpen) {
+                panel.classList.add("hidden");
+                btn.setAttribute("aria-expanded", "false");
+                if (icon) icon.textContent = "☰";
+            } else {
+                panel.classList.remove("hidden");
+                btn.setAttribute("aria-expanded", "true");
+                if (icon) icon.textContent = "✕";
+            }
+        }
+
+        const ACCESS_CREDENTIALS = {
+            developer: { pin: "DEV2026", label: "Developer (Mahzuzan)", badgeColor: "bg-purple-600" },
+            guru:      { pin: "GURU123", label: "Guru / Wali Kelas", badgeColor: "bg-amber-600" },
+            bendahara: { pin: "KAS2026", label: "Bendahara Kelas", badgeColor: "bg-emerald-600" },
+            siswa:     { pin: "XIG2026", label: "Siswa XI-Greatness", badgeColor: "bg-blue-600" },
+            guest:     { pin: "",        label: "Pengunjung Biasa", badgeColor: "bg-slate-700" }
+        };
+
+        function getCurrentRole() {
+            return localStorage.getItem("xig_active_role") || "guest";
+        }
+
+        function handleRoleLogin(event) {
+            event.preventDefault();
+            const selectedRole = document.getElementById("login-role").value;
+            const inputPin = document.getElementById("login-pin").value.trim();
+            const errorMsg = document.getElementById("login-error");
+
+            if (selectedRole === "guest") {
+                setRoleSession("guest");
+                return;
+            }
+
+            const validPin = ACCESS_CREDENTIALS[selectedRole]?.pin;
+            if (inputPin === validPin) {
+                errorMsg.classList.add("hidden");
+                setRoleSession(selectedRole);
+            } else {
+                errorMsg.textContent = "Kode akses salah! Silakan periksa kembali.";
+                errorMsg.classList.remove("hidden");
+            }
+        }
+
+        function setRoleSession(role) {
+            localStorage.setItem("xig_active_role", role);
+            closeLoginModal();
+            updateAuthUI();
+            location.reload();
+        }
+
+        function logoutRole() {
+            localStorage.setItem("xig_active_role", "guest");
+            updateAuthUI();
+            location.reload();
+        }
+
+        function openLoginModal() {
+            const modal = document.getElementById("auth-modal");
+            if (modal) {
+                modal.classList.remove("hidden");
+                modal.classList.add("flex");
+                togglePinInput();
+            }
+        }
+
+        function closeLoginModal() {
+            const modal = document.getElementById("auth-modal");
+            if (modal) {
+                modal.classList.add("hidden");
+                modal.classList.remove("flex");
+            }
+        }
+
+        function togglePinInput() {
+            const roleSelect = document.getElementById("login-role");
+            const pinWrapper = document.getElementById("pin-input-wrapper");
+            const pinInput = document.getElementById("login-pin");
+            if (!roleSelect || !pinWrapper) return;
+
+            if (roleSelect.value === "guest") {
+                pinWrapper.classList.add("hidden");
+                pinInput.removeAttribute("required");
+            } else {
+                pinWrapper.classList.remove("hidden");
+                pinInput.setAttribute("required", "true");
+            }
+        }
+
+        function injectAuthModalIfMissing() {
+            if (document.getElementById("auth-modal")) return;
+            document.body.insertAdjacentHTML("beforeend", `
+                <div id="auth-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+                    <div class="bg-navy-900 border border-slate-800 w-full max-w-md rounded-3xl p-7 shadow-2xl relative">
+                        <button type="button" onclick="closeLoginModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-sm font-bold px-2.5 py-1 rounded-lg bg-navy-950 border border-slate-800 cursor-pointer">✕</button>
+                        <div class="mb-6">
+                            <span class="text-[11px] font-extrabold uppercase tracking-wider text-electric-400 bg-electric-500/10 px-3 py-1 rounded-full border border-electric-500/20">Autentikasi Portal</span>
+                            <h3 class="text-xl font-extrabold text-white mt-3">Pilih Hak Akses Masuk</h3>
+                            <p class="text-xs text-slate-400 mt-1">Masuk sesuai peran Anda atau lanjutkan sebagai pengunjung biasa.</p>
+                        </div>
+                        <form onsubmit="handleRoleLogin(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Peran / Jabatan</label>
+                                <select id="login-role" onchange="togglePinInput()" class="w-full bg-navy-950 border border-slate-700 rounded-xl px-4 py-3 text-sm font-semibold text-white focus:outline-none focus:border-electric-500">
+                                    <option value="guest">Pengunjung Biasa (Tanpa Kode)</option>
+                                    <option value="siswa">Siswa XI-Greatness</option>
+                                    <option value="bendahara">Bendahara Kelas</option>
+                                    <option value="guru">Guru / Wali Kelas</option>
+                                    <option value="developer">Pembuat Web (Developer)</option>
+                                </select>
+                            </div>
+                            <div id="pin-input-wrapper" class="hidden">
+                                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Kode Akses / PIN</label>
+                                <input type="password" id="login-pin" placeholder="Masukkan kode akses..." class="w-full bg-navy-950 border border-slate-700 rounded-xl px-4 py-3 text-sm font-semibold text-white focus:outline-none focus:border-electric-500">
+                            </div>
+                            <p id="login-error" class="hidden text-xs font-semibold text-red-400 bg-red-500/10 border border-red-500/20 px-3 py-2 rounded-xl"></p>
+                            <button type="submit" class="w-full py-3.5 bg-electric-600 hover:bg-electric-500 text-white rounded-xl font-bold text-sm shadow-lg shadow-electric-600/30 transition cursor-pointer">MASUK KE PORTAL</button>
+                        </form>
+                    </div>
+                </div>
+            `);
+        }
+
+        function updateAuthUI() {
+            injectAuthModalIfMissing();
+            const role = getCurrentRole();
+            const info = ACCESS_CREDENTIALS[role] || ACCESS_CREDENTIALS.guest;
+            const authContainer = document.getElementById("nav-auth-container");
+
+            if (authContainer) {
+                if (role === "guest") {
+                    authContainer.innerHTML = `<button type="button" onclick="openLoginModal()" class="px-3 py-2 rounded-xl text-xs font-extrabold bg-electric-600 hover:bg-electric-500 text-white shadow-md transition cursor-pointer">MASUK / LOGIN</button>`;
+                } else {
+                    authContainer.innerHTML = `
+                        <span class="px-2.5 py-1.5 rounded-xl text-[10px] sm:text-[11px] font-extrabold text-white ${info.badgeColor} shadow-sm">${info.label.toUpperCase()}</span>
+                        <button type="button" onclick="logoutRole()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 transition cursor-pointer">KELUAR</button>
+                    `;
+                }
+            }
+
+            document.querySelectorAll("[data-role]").forEach((el) => {
+                const allowedRoles = el.getAttribute("data-role").split(",").map(r => r.trim());
+                if (allowedRoles.includes(role)) {
+                    el.classList.remove("hidden");
+                } else {
+                    el.classList.add("hidden");
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", updateAuthUI);
+    </script>
+</body>
+</html>

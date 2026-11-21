@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Guru - XI G SMARTCLASS MAN 1 Lamongan</title>
+    <link rel="icon" type="image/jpeg" href="src/img/logoman.jpeg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { 800: '#1e293b', 900: '#0f172a', 950: '#020617' },
+                        electric: { 500: '#3b82f6', 600: '#2563eb' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased selection:bg-electric-500 selection:text-white min-h-screen flex flex-col justify-between">
+
+    <div>
+        <!-- Navbar + Hamburger HP -->
+        <nav class="bg-navy-900/95 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40 shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex justify-between items-center gap-2">
+                <div class="flex items-center space-x-2.5 shrink-0">
+                    <div class="w-10 h-10 rounded-xl overflow-hidden border border-slate-700 bg-navy-950 flex items-center justify-center shrink-0 shadow-md">
+                        <img src="src/img/logoman.jpeg" alt="Logo MAN 1" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <span class="text-xs font-bold text-electric-400 hidden">XI G</span>
+                    </div>
+                    <div>
+                        <h1 class="font-extrabold text-sm sm:text-base tracking-wide text-white leading-tight">XI G SMARTCLASS</h1>
+                        <p class="text-[11px] text-slate-400 font-medium">MAN 1 Lamongan • 2026/2027</p>
+                    </div>
+                </div>
+
+                <!-- Menu Desktop -->
+                <div class="hidden lg:flex items-center space-x-1 bg-navy-950/80 p-1 rounded-xl border border-slate-800 text-xs font-bold">
+                    <a href="index.html" class="px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-navy-900 transition">BERANDA</a>
+                    <a href="profil.html" class="px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-navy-900 transition">STRUKTUR KELAS</a>
+                    <a href="jadwal.html" class="px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-navy-900 transition">JADWAL</a>
+                    <a href="galeri.html" class="px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-navy-900 transition">GALERI</a>
+                    <a href="about.html" class="px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-navy-900 transition">TENTANG</a>
+                </div>
+
+                <!-- Login + Hamburger HP -->
+                <div class="flex items-center gap-2 shrink-0">
+                    <div id="nav-auth-container" class="flex items-center gap-2">
+                        <button type="button" onclick="openLoginModal()" class="px-3 py-2 rounded-xl text-xs font-extrabold bg-electric-600 hover:bg-electric-500 text-white shadow-md transition cursor-pointer">
+                            MASUK / LOGIN
+                        </button>
+                    </div>
+
+                    <button
+                        type="button"
+                        id="mobile-menu-btn"
+                        onclick="toggleMobileMenu()"
+                        aria-label="Buka atau tutup menu navigasi"
+                        aria-expanded="false"
+                        class="lg:hidden w-10 h-10 rounded-xl bg-navy-950 border border-slate-800 hover:border-slate-700 text-slate-200 hover:text-white flex items-center justify-center transition cursor-pointer"
+                    >
+                        <span id="mobile-menu-icon" class="text-base font-extrabold leading-none">☰</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dropdown Menu HP -->
+            <div id="mobile-menu-panel" class="hidden lg:hidden border-t border-slate-800/90 bg-navy-950/95 px-4 py-3">
+                <div class="flex flex-col space-y-1.5 text-xs font-bold">
+                    <a href="index.html" class="px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-navy-900 transition">BERANDA</a>
+                    <a href="profil.html" class="px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-navy-900 transition">STRUKTUR KELAS</a>
+                    <a href="jadwal.html" class="px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-navy-900 transition">JADWAL</a>
+                    <a href="galeri.html" class="px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-navy-900 transition">GALERI</a>
+                    <a href="about.html" class="px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-navy-900 transition">TENTANG</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Konten Daftar Guru -->
+        <section class="max-w-6xl mx-auto px-6 py-10">
+            <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
+                <a href="index.html" class="px-4 py-2 rounded-xl text-xs font-bold bg-navy-900 hover:bg-navy-800 text-slate-200 border border-slate-800 transition">
+                    ← KEMBALI KE BERANDA
+                </a>
+                <a href="kepala-madrasah.html" class="px-4 py-2 rounded-xl text-xs font-bold bg-electric-600 hover:bg-electric-500 text-white transition">
+                    LIHAT KEPALA MADRASAH →
+                </a>
+            </div>
+
+            <div class="bg-navy-900/95 backdrop-blur-md p-6 sm:p-8 rounded-3xl border border-slate-800 shadow-2xl space-y-6">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-slate-800 pb-4">
+                    <div>
+                        <span class="text-[11px] font-extrabold uppercase tracking-widest text-electric-400 bg-electric-500/10 px-3.5 py-1 rounded-full border border-electric-500/20 inline-block mb-2">
+                            DIREKTORI GURU & TUGAS
+                        </span>
+                        <h2 class="font-extrabold text-xl sm:text-2xl text-white uppercase tracking-wide">
+                            DAFTAR GURU MAN 1 LAMONGAN
+                        </h2>
+                        <p class="text-xs sm:text-sm text-slate-400 mt-1">
+                            Memuat nama & gelar, mata pelajaran, jabatan struktural, serta jabatan tambahan seluruh 108 guru MAN 1 Lamongan.
+                        </p>
+                    </div>
+                    <span id="guru-count-badge" class="text-[11px] font-bold text-electric-400 bg-electric-500/10 border border-electric-500/20 px-3.5 py-1.5 rounded-xl self-start lg:self-auto shrink-0">
+                        108 Guru Ditampilkan
+                    </span>
+                </div>
+
+                <!-- Pencarian & Filter -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div class="md:col-span-2">
+                        <label for="guru-search-input" class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Cari Nama, Gelar, Mapel, atau Jabatan</label>
+                        <input
+                            id="guru-search-input"
+                            type="text"
+                            oninput="renderGuruTable()"
+                            placeholder="Ketik nama guru, mata pelajaran, wali kelas, pembina..."
+                            class="w-full bg-navy-950 border border-slate-700 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-semibold text-white placeholder-slate-500 focus:outline-none focus:border-electric-400"
+                        >
+                    </div>
+                    <div>
+                        <label for="guru-filter-jabatan" class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Filter Kategori Tugas</label>
+                        <select
+                            id="guru-filter-jabatan"
+                            onchange="renderGuruTable()"
+                            class="w-full bg-navy-950 border border-slate-700 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-semibold text-white focus:outline-none focus:border-electric-400"
+                        >
+                            <option value="semua">Semua Guru (108)</option>
+                            <option value="struktural">Memiliki Jabatan Struktural</option>
+                            <option value="tambahan">Memiliki Jabatan Tambahan</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Tabel Lengkap Guru -->
+                <div class="overflow-x-auto bg-navy-950/90 border border-slate-800 rounded-2xl">
+                    <table class="w-full text-left border-collapse min-w-[760px]">
+                        <thead>
+                            <tr class="bg-navy-900 text-[11px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-800">
+                                <th class="p-3.5 text-center w-12">No</th>
+                                <th class="p-3.5">Nama & Gelar</th>
+                                <th class="p-3.5">Mata Pelajaran</th>
+                                <th class="p-3.5">Jabatan Struktural</th>
+                                <th class="p-3.5">Jabatan Tambahan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="guru-tbody" class="divide-y divide-slate-800/80 text-xs sm:text-sm"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="bg-navy-950 border-t border-slate-800 py-6 text-center text-xs text-slate-400">
+        <p>© 2026 XI G SMARTCLASS • MAN 1 Lamongan. All rights reserved.</p>
+    </footer>
+
+    <!-- Modal Login -->
+    <div id="auth-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-navy-900 border border-slate-800 w-full max-w-md rounded-3xl p-7 shadow-2xl relative">
+            <button type="button" onclick="closeLoginModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-sm font-bold px-2.5 py-1 rounded-lg bg-navy-950 border border-slate-800 cursor-pointer">X</button>
+            <div class="mb-6">
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-electric-400 bg-electric-500/10 px-3 py-1 rounded-full border border-electric-500/20">Autentikasi Portal</span>
+                <h3 class="text-xl font-extrabold text-white mt-3">Pilih Hak Akses Masuk</h3>
+                <p class="text-xs text-slate-400 mt-1">Masuk sesuai peran Anda atau lanjutkan sebagai pengunjung biasa.</p>
+            </div>
+            <form onsubmit="handleRoleLogin(event)" class="space-y-4">
+                <div>
+                    <label for="login-role" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Peran / Jabatan</label>
+                    <select id="login-role" onchange="togglePinInput()" class="w-full bg-navy-950 border border-slate-700 rounded-xl px-4 py-3 text-sm font-semibold text-white focus:outline-none focus:border-electric-500">
+                        <option value="guest">Pengunjung Biasa (Tanpa Kode)</option>
+                        <option value="siswa">Siswa XI-Greatness</option>
+                        <option value="bendahara">Bendahara Kelas</option>
+                        <option value="guru">Guru / Wali Kelas</option>
+                        <option value="developer">Pembuat Web (Developer)</option>
+                    </select>
+                </div>
+                <div id="pin-input-wrapper" class="hidden">
+                    <label for="login-pin" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Kode Akses / PIN</label>
+                    <input type="password" id="login-pin" placeholder="Masukkan kode akses..." class="w-full bg-navy-950 border border-slate-700 rounded-xl px-4 py-3 text-sm font-semibold text-white focus:outline-none focus:border-electric-500">
+                </div>
+                <p id="login-error" class="hidden text-xs font-semibold text-red-400 bg-red-500/10 border border-red-500/20 px-3 py-2 rounded-xl"></p>
+                <button type="submit" class="w-full py-3.5 bg-electric-600 hover:bg-electric-500 text-white rounded-xl font-bold text-sm shadow-lg shadow-electric-600/30 transition cursor-pointer">MASUK KE PORTAL</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="./guru.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>
